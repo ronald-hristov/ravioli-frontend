@@ -11,12 +11,12 @@
         <b-col cols="6">
           <b-form @submit="onSubmit" v-if="show">
             <b-form-group
-                id="input-group-1"
+                id="input-group-email"
                 label="Email address:"
-                label-for="input-1"
+                label-for="form-email"
             >
               <b-form-input
-                  id="input-1"
+                  id="form-email"
                   v-model="form.email"
                   type="email"
                   placeholder="Enter email"
@@ -24,9 +24,9 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-2" label="Password:" label-for="input-2">
+            <b-form-group id="input-group-password" label="Password:" label-for="form-password">
               <b-form-input
-                  id="input-2"
+                  id="form-password"
                   v-model="form.password"
                   placeholder="Enter Password"
                   type="password"
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "Login",
   data() {
@@ -57,7 +59,14 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault()
-      alert(JSON.stringify(this.form))
+      axios.post('/api/user/auth', this.form)
+          .then(res => {
+            this.$store.commit('login', res.data);
+            this.$router.push('/');
+          })
+          .catch(err => {
+            console.log(err)
+          })
     }
   }
 }

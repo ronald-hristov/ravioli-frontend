@@ -18,6 +18,9 @@ export default {
   name: 'Home',
   components: {
     Navbar
+  },
+  created() {
+    this.$store.dispatch('fetchUser')
   }
 }
 </script>
@@ -42,6 +45,6 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #ffc107;
 }
 </style>

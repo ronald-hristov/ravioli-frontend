@@ -64,6 +64,11 @@ export default {
       event.preventDefault()
       alert(JSON.stringify(this.form))
     }
+  },
+  created() {
+    if (!this.$store.getters.isAuthenticated) {
+      this.$router.push('/login');
+    }
   }
 }
 </script>

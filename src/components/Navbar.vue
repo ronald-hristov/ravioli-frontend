@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar toggleable="lg" type="dark" variant="warning">
       <b-navbar-brand to="/">Ravioli</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -12,7 +12,8 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/login"><b-icon icon="person"></b-icon> Login</b-nav-item>
+          <b-nav-item to="/login" v-if="!$store.getters.isAuthenticated"><b-icon icon="person" ></b-icon> Log in</b-nav-item>
+          <b-nav-item @click="onLogout" v-if="$store.getters.isAuthenticated"><b-icon icon="person"></b-icon> Log out</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -20,8 +21,21 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  methods: {
+    onLogout() {
+      axios.get('/api/user/logout')
+          .then(res => {
+            this.$store.commit('clearUser')
+          })
+          .catch(err => {
+            console.log(err)
+          })
+    }
+  }
 }
 </script>
 
