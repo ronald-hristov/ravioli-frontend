@@ -3,7 +3,7 @@
     <b-container>
       <b-row align-h="center">
         <b-col cols="6">
-          <h1>New Post</h1>
+          <h1>Edit Post</h1>
           <b-form @submit="onSubmit" v-if="show">
             <b-form-group
                 id="input-group-1"
@@ -34,12 +34,12 @@
                 v-model="file"
                 :state="Boolean(file)"
                 accept="image/jpeg, image/png, image/gif"
-                placeholder="Choose a cover image or drop it here..."
+                placeholder="Choose a new cover image or drop it here..."
                 drop-placeholder="Drop file here..."
                 class="mb-4"
             ></b-form-file>
 
-            <b-button type="submit" variant="primary">Create</b-button>
+            <b-button type="submit" variant="primary">Edit</b-button>
           </b-form>
         </b-col>
       </b-row>
@@ -51,7 +51,7 @@
 import axios from "axios";
 
 export default {
-  name: "CreatePost",
+  name: "EditPost",
   data() {
     return {
       form: {
@@ -66,8 +66,6 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault()
-      console.log(this.form)
-      console.log(this.file)
 
       let formData = new FormData();
       formData.append('file', this.file);
@@ -75,9 +73,9 @@ export default {
       formData.append('content', this.form.content)
 
 
-      axios.post('/api/article', formData,
+      axios.post('/api/article/' + this.$route.params.id, formData,
           {headers: {'Content-Type': 'multipart/form-data'}}
-          )
+      )
           .then(res => {
             this.$router.push('/');
           })
@@ -90,6 +88,17 @@ export default {
     if (!this.$store.getters.isAuthenticated) {
       this.$router.push('/login');
     }
+
+    axios.get('/api/article/' + this.$route.params.id)
+        .then(res => {
+          let post = res.data
+          this.form.title = post.title
+          this.form.content = post.content
+          this.file = post.image
+        })
+        .catch(err => {
+          console.log(err)
+        })
   }
 }
 </script>

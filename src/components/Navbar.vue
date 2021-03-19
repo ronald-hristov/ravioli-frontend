@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="warning">
+    <b-navbar toggleable="lg" type="dark" variant="warning" class="mb-4">
       <b-navbar-brand to="/">Ravioli</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

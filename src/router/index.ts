@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import CreatePost from '../views/CreatePost.vue'
+import ViewPost from '../views/ViewPost.vue'
+import EditPost from '../views/EditPost.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +29,16 @@ const routes: Array<RouteConfig> = [
     path: '/create-post',
     name: 'CreatePost',
     component: CreatePost
+  },
+  {
+    path: '/article/:id/edit',
+    name: 'EditPost',
+    component: EditPost
+  },
+  {
+    path: '/article/:id',
+    name: 'ViewPost',
+    component: ViewPost
   },
   {
     path: '/about',

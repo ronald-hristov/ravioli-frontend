@@ -61,7 +61,7 @@ export default {
       event.preventDefault()
       axios.post('/api/user/auth', this.form)
           .then(res => {
-            this.$store.commit('login', res.data);
+            this.$store.commit('login', res.data.user);
             this.$router.push('/');
           })
           .catch(err => {
