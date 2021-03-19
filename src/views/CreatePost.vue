@@ -23,11 +23,7 @@
                 label-for="textarea-formatter"
                 class="mb-4"
             >
-              <b-form-textarea
-                  id="textarea-formatter"
-                  v-model="form.content"
-                  placeholder="Post content"
-              ></b-form-textarea>
+              <ckeditor :editor="editor" v-model="form.content" :config="editorConfig"></ckeditor>
             </b-form-group>
 
             <b-form-file
@@ -49,9 +45,12 @@
 
 <script>
 import axios from "axios";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default {
   name: "CreatePost",
+  components: {
+  },
   data() {
     return {
       form: {
@@ -60,7 +59,11 @@ export default {
         // file: '',
       },
       file: null,
-      show: true
+      show: true,
+      editor: ClassicEditor,
+      editorConfig: {
+        // The configuration of the editor.
+      }
     }
   },
   methods: {

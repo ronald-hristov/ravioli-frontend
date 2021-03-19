@@ -7,8 +7,20 @@ import router from './router'
 import store from './store'
 import axios from 'axios';
 
+import CKEditor from '@ckeditor/ckeditor5-vue2';
+Vue.use( CKEditor );
+
 Vue.config.productionTip = false
 axios.defaults.headers.get['Accepts'] = 'application/json'
+axios.interceptors.response.use(function (response) {
+  return response
+}, function (error) {
+  console.log(error.response.data)
+  // if (error.response.status === 401) {
+    router.push('')
+  // }
+  return Promise.reject(error)
+})
 
 new Vue({
   router,

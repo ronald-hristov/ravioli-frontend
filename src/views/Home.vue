@@ -13,7 +13,7 @@
               class="mb-3"
               cols="3"
       >
-        <b-card-text>{{ post.content.slice(0, 200) }} ...</b-card-text>
+        <b-card-text v-html="post.content.slice(0, 50) + '...'"></b-card-text>
 
           <b-button :to="'/article/' + post.id" variant="primary">Read more</b-button> &ensp;
           <b-button :to="'/article/' + post.id + '/edit'" variant="warning" v-if="userOwnsPost(post)">Edit</b-button> &ensp;

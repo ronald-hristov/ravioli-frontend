@@ -50,4 +50,8 @@ export default {
 #nav a.router-link-exact-active {
   color: #ffc107;
 }
+
+.ck-editor__editable_inline {
+  min-height: 300px;
+}
 </style>
